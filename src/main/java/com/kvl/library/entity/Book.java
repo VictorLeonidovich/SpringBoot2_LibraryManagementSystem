@@ -32,4 +32,40 @@ public class Book {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "books_publishers", joinColumns = {@JoinColumn(name = "book_id")}, inverseJoinColumns = {@JoinColumn(name = "publisher_id")})
     private Set<Publisher> publishers = new HashSet<>();
+
+    public Book(String isbn, String name, String description) {
+        this.name = name;
+        this.isbn = isbn;
+        this.description = description;
+    }
+
+    public void removeAuthor(final Author author) {
+        authors.remove(author);
+        author.getBooks().remove(author);
+    }
+
+    public void addAuthor(final Author author) {
+        authors.add(author);
+        author.getBooks().add(this);
+    }
+
+    public void removeCategory(final Category category) {
+        categories.remove(category);
+        category.getBooks().remove(category);
+    }
+
+    public void addCategory(final Category category) {
+        categories.add(category);
+        category.getBooks().add(this);
+    }
+
+    public void removePublisher(final Publisher publisher) {
+        publishers.remove(publisher);
+        publisher.getBooks().remove(publisher);
+    }
+
+    public void addPublisher(final Publisher publisher) {
+        publishers.add(publisher);
+        publisher.getBooks().add(this);
+    }
 }
