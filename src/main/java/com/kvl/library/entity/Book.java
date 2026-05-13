@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,15 +14,20 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "books")
+@ToString(onlyExplicitlyIncluded = true)
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ToString.Include
     private Long id;
     @Column(name = "name", length = 50, nullable = false)
+    @ToString.Include
     private String name;
     @Column(name = "isbn", length = 50, nullable = false, unique = true)
+    @ToString.Include
     private String isbn;
     @Column(name = "description", length = 250, nullable = false)
+    @ToString.Include
     private String description;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "books_authors", joinColumns = {@JoinColumn(name = "book_id")}, inverseJoinColumns = {@JoinColumn(name = "author_id")})

@@ -2,22 +2,27 @@ package com.kvl.library.service;
 
 import com.kvl.library.entity.Book;
 import com.kvl.library.repository.BookRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
     public List<Book> findAllBooks() {
+        log.info("Fetching all books from the database");
         return bookRepository.findAll();
     }
 
     public Book findBookById(final Long id) {
-        return findById(id);
+        Book book = findById(id);
+        log.info("Fetched book '{}' by id '{}' from the database", book, id);
+        return book;
     }
 
     private Book findById(final Long id) {
@@ -25,15 +30,18 @@ public class BookService {
     }
 
     public void createBook(final Book book) {
+        log.info("Saving book '{}' to the database", book);
         bookRepository.save(book);
     }
 
     public void updateBook(final Book book) {
+        log.info("Updating book '{}' in the database", book);
         bookRepository.save(book);
     }
 
     public void deleteBook(final Long id) {
         final Book book = findById(id);
+        log.info("Deleting book '{}' by id '{}' from the database", book, id);
         bookRepository.deleteById(book.getId());
     }
 }
