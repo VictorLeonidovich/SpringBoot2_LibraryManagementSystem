@@ -1,6 +1,5 @@
 package com.kvl.library.controller;
 
-import com.kvl.library.entity.Book;
 import com.kvl.library.entity.Category;
 import com.kvl.library.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +12,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CategoryController {
-    @Autowired
-    CategoryService categoryService;
+    public static final String CATEGORIES = "categories";
+    final CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/categories")
     public String findAllCategories(Model model) {
-        model.addAttribute("categories", categoryService.findAllCategories());
-        return "categories";
+        model.addAttribute(CATEGORIES, categoryService.findAllCategories());
+        return CATEGORIES;
     }
 
     @GetMapping("/remove-category/{id}")
     public String removeCategory(@PathVariable Long id, Model model) {
         categoryService.deleteCategory(id);
-        model.addAttribute("categories", categoryService.findAllCategories());
-        return "categories";
+        model.addAttribute(CATEGORIES, categoryService.findAllCategories());
+        return CATEGORIES;
     }
 
     @GetMapping("/update-category/{id}")
@@ -41,7 +44,7 @@ public class CategoryController {
             return "update-category";
         }
         categoryService.updateCategory(category);
-        model.addAttribute("categories", categoryService.findAllCategories());
+        model.addAttribute(CATEGORIES, categoryService.findAllCategories());
         return "redirect:/categories";
     }
 
@@ -56,7 +59,7 @@ public class CategoryController {
             return "add-category";
         }
         categoryService.createCategory(category);
-        model.addAttribute("categories", categoryService.findAllCategories());
+        model.addAttribute(CATEGORIES, categoryService.findAllCategories());
         return "redirect:/categories";
     }
 }

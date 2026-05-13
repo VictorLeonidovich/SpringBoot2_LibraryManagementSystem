@@ -1,10 +1,8 @@
 package com.kvl.library.service;
 
-import com.kvl.library.entity.Book;
 import com.kvl.library.entity.Category;
 import com.kvl.library.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
