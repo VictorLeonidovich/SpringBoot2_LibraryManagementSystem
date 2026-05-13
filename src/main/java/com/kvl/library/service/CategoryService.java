@@ -12,8 +12,11 @@ import java.util.List;
 @Slf4j
 @Service
 public class CategoryService {
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     public List<Category> findAllCategories() {
         log.info("Fetching all categories from the database");

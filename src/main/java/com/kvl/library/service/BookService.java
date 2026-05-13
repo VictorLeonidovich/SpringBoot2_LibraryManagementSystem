@@ -11,8 +11,11 @@ import java.util.List;
 @Slf4j
 @Service
 public class BookService {
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public List<Book> findAllBooks() {
         log.info("Fetching all books from the database");

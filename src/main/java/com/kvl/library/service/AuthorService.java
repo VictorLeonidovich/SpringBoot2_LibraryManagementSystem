@@ -11,8 +11,11 @@ import java.util.List;
 @Slf4j
 @Service
 public class AuthorService {
-    @Autowired
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
+
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     public List<Author> findAllAuthors() {
         log.info("Fetching all authors from the database");

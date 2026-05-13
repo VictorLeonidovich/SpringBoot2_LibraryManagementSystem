@@ -12,8 +12,11 @@ import java.util.List;
 @Slf4j
 @Service
 public class PublisherService {
-    @Autowired
-    private PublisherRepository publisherRepository;
+    private final PublisherRepository publisherRepository;
+
+    public PublisherService(PublisherRepository publisherRepository) {
+        this.publisherRepository = publisherRepository;
+    }
 
     public List<Publisher> findAllPublishers() {
         log.info("Fetching all publishers from the database");
