@@ -26,12 +26,12 @@ public class BookController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping("/books")
+    /*@GetMapping("/books")
     public String findAllBooks(Model model) {
         List<Book> books = bookService.findAllBooks();
         model.addAttribute("books", books);
         return "books";
-    }
+    }*/
 
     @GetMapping("/book/{id}")
     public String findBook(@PathVariable Long id, Model model) {
