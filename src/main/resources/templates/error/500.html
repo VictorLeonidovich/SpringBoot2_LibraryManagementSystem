@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка сервера</title>
+    <link rel="stylesheet" href="https://jsdelivr.net">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="text-center">
+        <h1 class="display-1 text-danger">500</h1>
+        <h2>Внутренняя ошибка приложения</h2>
+        <p class="lead" th:text="${errorMessage}">Сообщение об ошибке для пользователя.</p>
+    </div>
+
+    <!-- Этот блок отрендерится только если technicalDetails не null (то есть в DEV профиле) -->
+    <div class="card text-left my-4" th:if="${technicalDetails}">
+        <div class="card-header bg-warning text-dark font-weight-bold">
+            Панель отладки (Режим разработки)
+        </div>
+        <div class="card-body bg-dark text-white font-monospace">
+            <h5 class="text-info">Исключение:</h5>
+            <p th:text="${technicalDetails}"></p>
+
+            <h5 class="text-info" th:if="${stackTrace}">Стек-трейс:</h5>
+            <pre class="text-light" style="max-height: 300px; overflow-y: auto;" th:text="${stackTrace}"></pre>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="/" class="btn btn-secondary">На главную</a>
+    </div>
+</div>
+</body>
+</html>
