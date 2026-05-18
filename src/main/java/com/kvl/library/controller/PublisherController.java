@@ -2,6 +2,7 @@ package com.kvl.library.controller;
 
 import com.kvl.library.entity.Publisher;
 import com.kvl.library.service.PublisherService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class PublisherController {
     }
 
     @PostMapping("/save-publisher/{id}")
-    public String savePublisher(@PathVariable Long id, Publisher publisher, BindingResult bindingResult, Model model) {
+    public String savePublisher(@PathVariable Long id, @Valid Publisher publisher, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "update-publisher";
         }
@@ -46,12 +47,12 @@ public class PublisherController {
     }
 
     @GetMapping("/add-publisher")
-    public String addPublisher(Publisher publisher) {
+    public String addPublisher(@Valid Publisher publisher, BindingResult bindingResult) {
         return "add-publisher";
     }
 
     @PostMapping("/save-publisher")
-    public String savePublisher(Publisher publisher, BindingResult bindingResult, Model model) {
+    public String savePublisher(@Valid Publisher publisher, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-publisher";
         }

@@ -2,6 +2,7 @@ package com.kvl.library.controller;
 
 import com.kvl.library.entity.Category;
 import com.kvl.library.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +40,7 @@ public class CategoryController {
     }
 
     @PostMapping("/save-category/{id}")
-    public String saveCategory(@PathVariable Long id, Category category, BindingResult bindingResult, Model model) {
+    public String saveCategory(@PathVariable Long id, @Valid Category category, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "update-category";
         }
@@ -49,12 +50,12 @@ public class CategoryController {
     }
 
     @GetMapping("/add-category")
-    public String addCategory(Category category) {
+    public String addCategory(@Valid Category category, BindingResult bindingResult) {
         return "add-category";
     }
 
     @PostMapping("/save-category")
-    public String saveCategory(Category category, BindingResult bindingResult, Model model) {
+    public String saveCategory(@Valid Category category, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-category";
         }

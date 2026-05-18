@@ -5,6 +5,7 @@ import com.kvl.library.service.AuthorService;
 import com.kvl.library.service.BookService;
 import com.kvl.library.service.CategoryService;
 import com.kvl.library.service.PublisherService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +58,7 @@ public class BookController {
     }
 
     @PostMapping("/save-book/{id}")
-    public String updateBook(@PathVariable Long id, Book book, BindingResult bindingResult, Model model) {
+    public String updateBook(@PathVariable Long id, @Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "update-book";
         }
@@ -67,7 +68,7 @@ public class BookController {
     }
 
     @GetMapping("/add-book")
-    public String addBook(Book book, Model model) {
+    public String addBook(@Valid Book book, BindingResult bindingResult, Model model) {
         model.addAttribute("categories", categoryService.findAllCategories());
         model.addAttribute("publishers", publisherService.findAllPublishers());
         model.addAttribute("authors", authorService.findAllAuthors());
@@ -75,7 +76,7 @@ public class BookController {
     }
 
     @PostMapping("/save-book")
-    public String saveBook(Book book, BindingResult bindingResult, Model model) {
+    public String saveBook(@Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-book";
         }

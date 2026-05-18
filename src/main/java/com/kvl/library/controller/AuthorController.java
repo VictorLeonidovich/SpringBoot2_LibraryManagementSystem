@@ -2,6 +2,7 @@ package com.kvl.library.controller;
 
 import com.kvl.library.entity.Author;
 import com.kvl.library.service.AuthorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +36,7 @@ public class AuthorController {
     }
 
     @PostMapping("/save-author/{id}")
-    public String saveAuthor(@PathVariable Long id, Author author, BindingResult bindingResult, Model model) {
+    public String saveAuthor(@PathVariable Long id, @Valid Author author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "update-author";
         }
@@ -45,12 +46,12 @@ public class AuthorController {
     }
 
     @GetMapping("/add-author")
-    public String addAuthor(Author author) {
+    public String addAuthor(@Valid Author author, BindingResult bindingResult) {
         return "add-author";
     }
 
     @PostMapping("/save-author")
-    public String saveAuthor(Author author, BindingResult bindingResult, Model model) {
+    public String saveAuthor(@Valid Author author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-author";
         }

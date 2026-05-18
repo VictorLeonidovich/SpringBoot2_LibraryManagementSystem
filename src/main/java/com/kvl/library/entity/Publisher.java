@@ -1,6 +1,8 @@
 package com.kvl.library.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +18,18 @@ import java.util.Set;
 @Table(name = "publishers")
 @ToString(onlyExplicitlyIncluded = true)
 public class Publisher {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ToString.Include
     private Long id;
+
+    @NotEmpty(message = "Имя не должно быть пустым")
+    @Size(min = 2, max = 50, message = "Имя должно быть длиной от 2 до 50 символов")
     @Column(name = "name", length = 50, nullable = false, unique = true)
     @ToString.Include
     private String name;
+
     @ManyToMany(mappedBy = "publishers", cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();
 
