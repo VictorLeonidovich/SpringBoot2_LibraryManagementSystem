@@ -1,6 +1,7 @@
 package com.kvl.library.service;
 
 import com.kvl.library.entity.Author;
+import com.kvl.library.exception.EntityNotFoundException;
 import com.kvl.library.repository.AuthorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class AuthorService {
     }
 
     private Author findById(final Long id) {
-        return authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Author in not found"));
+        return authorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Author with ID " + id + " was not found"));
     }
 
     public void createAuthor(final Author author) {

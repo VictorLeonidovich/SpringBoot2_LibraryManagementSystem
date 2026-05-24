@@ -1,6 +1,7 @@
 package com.kvl.library.service;
 
 import com.kvl.library.entity.Book;
+import com.kvl.library.exception.EntityNotFoundException;
 import com.kvl.library.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class BookService {
     }
 
     private Book findById(final Long id) {
-        return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book in not found"));
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Book with ID " + id + " was not found"));
     }
 
     public void createBook(final Book book) {

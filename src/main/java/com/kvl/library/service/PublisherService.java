@@ -1,6 +1,7 @@
 package com.kvl.library.service;
 
 import com.kvl.library.entity.Publisher;
+import com.kvl.library.exception.EntityNotFoundException;
 import com.kvl.library.repository.PublisherRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class PublisherService {
     }
 
     private Publisher findById(final Long id) {
-        return publisherRepository.findById(id).orElseThrow(() -> new RuntimeException("Publisher in not found"));
+        return publisherRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Publisher with ID " + id + " was not found"));
     }
 
     public void createPublisher(final Publisher publisher) {

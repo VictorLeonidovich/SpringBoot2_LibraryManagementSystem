@@ -1,6 +1,7 @@
 package com.kvl.library.service;
 
 import com.kvl.library.entity.Category;
+import com.kvl.library.exception.EntityNotFoundException;
 import com.kvl.library.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class CategoryService {
     }
 
     private Category findById(final Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category in not found"));
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Category with ID " + id + " was not found"));
     }
 
     public void createCategory(final Category category) {
