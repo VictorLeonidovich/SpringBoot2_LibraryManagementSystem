@@ -15,8 +15,8 @@ import java.util.function.Function;
 public class JwtUtils {
 
     // Секретный ключ должен быть длинным (не менее 32 символов)
-    private final String SECRET_KEY = "myyy-super-secret-and-very-long-key-for-jwt-authentication-32-chars";
-    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 часов
+    private final String SECRET_KEY = "my-super-safe-and-ultra-long-secret-key-specifically-for-library-system-2026";
+    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 10L; // 10 часов
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));

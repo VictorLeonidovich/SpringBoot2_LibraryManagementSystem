@@ -46,3 +46,11 @@ ALTER TABLE authors ALTER COLUMN id RESTART WITH 7;
 ALTER TABLE categories ALTER COLUMN id RESTART WITH 7;
 ALTER TABLE publishers ALTER COLUMN id RESTART WITH 7;
 ALTER TABLE books ALTER COLUMN id RESTART WITH 7;
+
+-- Добавление тестового пользователя (логин: user, пароль: password)
+INSERT INTO users (username, password, role)
+VALUES ('user', '$2a$10$8.UnVuG9HHgN3vN6Y8.vXOCyBvB9qA78Yk7PBM9B.VreApxvM4B66', 'ROLE_USER');
+
+-- Добавление администратора (логин: admin, пароль: password)
+INSERT INTO users (username, password, role)
+VALUES ('admin', '$2a$10$8.UnVuG9HHgN3vN6Y8.vXOCyBvB9qA78Yk7PBM9B.VreApxvM4B66', 'ROLE_ADMIN');
