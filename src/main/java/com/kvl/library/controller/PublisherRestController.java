@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class PublisherRestController {
 
     // POST /api/v1/publishers
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PublisherResponseDTO> createPublisher(@Valid @RequestBody PublisherRequestDTO requestDTO) {
         Publisher publisher = publisherMapper.toEntity(requestDTO);
         publisherService.createPublisher(publisher);
@@ -48,6 +50,7 @@ public class PublisherRestController {
 
     // PUT /api/v1/publishers/{id}
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PublisherResponseDTO> updatePublisher(@PathVariable Long id,
                                                                 @Valid @RequestBody PublisherRequestDTO requestDTO) {
         Publisher existingPublisher = publisherService.findPublisherById(id);
@@ -58,6 +61,7 @@ public class PublisherRestController {
 
     // DELETE /api/v1/publishers/{id}
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePublisher(@PathVariable Long id) {
         publisherService.deletePublisher(id);
         return ResponseEntity.noContent().build();
